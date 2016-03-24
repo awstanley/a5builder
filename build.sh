@@ -37,6 +37,7 @@ export ZLIB_ARCHIVE="zlib.tar"
 export LIBPNG_ARCHIVE="libpng.tgz"
 export THEORA_ARCHIVE="libtheora.tgz"
 export DUMB_ARCHIVE="libdumb.tar"
+export PHYSFS_ARCHIVE="physfs.tgz"
 
 export OGG_BUILD="$BUILD_ROOT/ogg"
 export VORBIS_BUILD="$BUILD_ROOT/vorbis"
@@ -46,6 +47,7 @@ export ZLIB_BUILD="$BUILD_ROOT/zlib"
 export LIBPNG_BUILD="$BUILD_ROOT/libpng"
 export THEORA_BUILD="$BUILD_ROOT/theora"
 export DUMB_BUILD="$BUILD_ROOT/dumb"
+export PHYSFS_BUILD="$BUILD_ROOT/physfs"
 
 export XIPH_URI_ROOT="http://downloads.xiph.org/releases"
 export XIPH_GIT_ROOT="http://git.xiph.org"
@@ -74,6 +76,11 @@ export DUMB_INNER="dumb"
 export PNG_SRCS="libpng-1.6.21.tar.gz"
 export PNG_INNER="libpng-1.6.21"
 export PNG_SRC_ROOT="ftp://ftp.simplesystems.org/pub/libpng/png/src/libpng16"
+
+# Requires tgz because tbz isn't supported by the Windows tar (why?!)...
+export PHYSFS_SRCS="bf155bd2127b.tar.gz"
+export PHYSFS_SRCS_ROOT="http://hg.icculus.org/icculus/physfs/archive"
+export PHYSFS_INNER="physfs-bf155bd2127b"
 
 # Create the directories
 mkdir -p $ARCHIVE_DIR
@@ -156,6 +163,7 @@ GITARCHIVE "flac" $FLAC_ARCHIVE "$XIPH_GIT_ROOT/flac.git" "$FLAC_TAG"
 GITARCHIVE "freetype2" $FREETYPE_ARCHIVE "$SAVANNAH_GIT_ROOT/$FREETYPE_REPOSITORY" "$FREETYPE_TAG"
 GITFETCH $ZLIB_DIR $ZLIB_GIT $ZLIB_ARCHIVE
 FETCH $LIBPNG_ARCHIVE "$PNG_SRC_ROOT/$PNG_SRCS"
+FETCH $PHYSFS_ARCHIVE "$PHYSFS_SRCS_ROOT/$PHYSFS_SRCS"
 
 # dumb is currently a no-go, but we've got the pieces in play.
 # https://github.com/kode54/dumb/issues/21
@@ -171,6 +179,7 @@ EXTRACT $ZLIB_ARCHIVE "$SRCS_DIR/zlib"
 EXTRACT $LIBPNG_ARCHIVE "$SRCS_DIR/libpng"
 EXTRACT $THEORA_ARCHIVE "$SRCS_DIR/theora"
 EXTRACT $DUMB_ARCHIVE "$SRCS_DIR/dumb"
+EXTRACT $PHYSFS_ARCHIVE "$SRCS_DIR/physfs"
 
 # Setup build ...
 mkdir -p $ALLEGRO_BUILD
@@ -182,6 +191,7 @@ mkdir -p $ZLIB_BUILD
 mkdir -p $LIBPNG_BUILD
 mkdir -p $THEORA_BUILD
 mkdir -p $DUMB_BUILD
+mkdir -p $PHYSFS_BUILD
 
 # CMake install...
 export CMAKE_INSTALL_PREFIX="$OUT_ROOT/cmake_install"

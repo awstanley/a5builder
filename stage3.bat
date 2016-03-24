@@ -3,7 +3,7 @@ REM This file uses the known paths/values of the build (stage 2)
 REM to handle building Allegro.
 
 cd %ALLEGRO_BUILD%
-cmake -DCMAKE_BUILD_TYPE="%CMAKEBUILDTYPE%" -DCMAKE_DEBUG_POSTFIX="_debug" -DCMAKE_INSTALL_PREFIX="%CMAKE_INSTALL_PREFIX%" -DWANT_TESTS=OFF -DWANT_DEMO=OFF -DWANT_DOCS=OFF -DWANT_DOCS_HTML=OFF -DWANT_DOCS_MAN=OFF -DWANT_DOCS_INFO=OFF -DWANT_DOCS_PDF=OFF -DWANT_DOCS_PDF_PAPER=OFF -DZLIB_LIBRARY_RELEASE="%CMAKE_INSTALL_PREFIX%\lib\zlibstatic.lib"  -DZLIB_LIBRARY="%CMAKE_INSTALL_PREFIX%\lib\zlibstatic.lib" -DZLIB_LIBRARY_DEBUG="%CMAKE_INSTALL_PREFIX%\lib\zlibstaticd.lib" -DFLAC_STATIC=ON -DWANT_EXAMPLES=OFF -DWANT_MONOLITH=ON -DSHARED=OFF %SRCS_DIR%\allegro\%ALLEGRO_INNER%
+cmake -DCMAKE_BUILD_TYPE="%CMAKEBUILDTYPE%" -DCMAKE_DEBUG_POSTFIX="_debug" -DCMAKE_INSTALL_PREFIX="%CMAKE_INSTALL_PREFIX%" -DWANT_TESTS=OFF -DWANT_DEMO=OFF -DWANT_DOCS=OFF -DWANT_DOCS_HTML=OFF -DWANT_DOCS_MAN=OFF -DWANT_DOCS_INFO=OFF -DWANT_DOCS_PDF=OFF -DWANT_DOCS_PDF_PAPER=OFF -DZLIB_LIBRARY_RELEASE="%CMAKE_INSTALL_PREFIX%\lib\zlibstatic.lib"  -DZLIB_LIBRARY="%CMAKE_INSTALL_PREFIX%\lib\zlibstatic.lib" -DZLIB_LIBRARY_DEBUG="%CMAKE_INSTALL_PREFIX%\lib\zlibstaticd.lib" -DFLAC_STATIC=ON -DWANT_EXAMPLES=OFF -DWANT_MONOLITH=ON -DSHARED=OFF -DPHYSFS_INCLUDE_DIR="%SRCS_DIR%\physfs\%PHYSFS_INNER%" %SRCS_DIR%\allegro\%ALLEGRO_INNER%
 devenv ALLEGRO.sln /build Debug /project INSTALL
 REM devenv ALLEGRO.sln /build RelWithDebInfo /project INSTALL
 devenv ALLEGRO.sln /build Release /project INSTALL
@@ -49,7 +49,7 @@ echo 			debug "%CMAKE_INSTALL_PREFIX%/lib/libpng16_staticd.lib" >> %AllegroDeps%
 echo 			optimized "%CMAKE_INSTALL_PREFIX%/lib/libpng16_static.lib" >> %AllegroDeps%
 echo 		) >> %AllegroDeps%
 
-echo	 	target_link_libraries(${BINARY_NAME} >> %AllegroDeps%
+echo 		target_link_libraries(${BINARY_NAME} >> %AllegroDeps%
 echo 			debug "%CMAKE_INSTALL_PREFIX%/lib/libtheora_static_debug.lib" >> %AllegroDeps%
 echo 			optimized "%CMAKE_INSTALL_PREFIX%/lib/libtheora_static.lib" >> %AllegroDeps%
 echo 		) >> %AllegroDeps%
@@ -62,6 +62,12 @@ echo 		) >> %AllegroDeps%
 echo 		target_link_libraries(${BINARY_NAME} >> %AllegroDeps%
 echo 			debug "%CMAKE_INSTALL_PREFIX%/lib/libvorbis_static_debug.lib" >> %AllegroDeps%
 echo 			optimized "%CMAKE_INSTALL_PREFIX%/lib/libvorbis_static.lib" >> %AllegroDeps%
+echo 		) >> %AllegroDeps%
+
+REM physfs (static)
+echo 		target_link_libraries(${BINARY_NAME} >> %AllegroDeps%
+echo 			debug "%CMAKE_INSTALL_PREFIX%/lib/physfsd.lib" >> %AllegroDeps%
+echo 			optimized "%CMAKE_INSTALL_PREFIX%/lib/physfs.lib" >> %AllegroDeps%
 echo 		) >> %AllegroDeps%
 
 REM zlib
