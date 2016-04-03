@@ -1,10 +1,10 @@
-# Allegro 5.1 dependencies scripts.
+# Allegro 5.2.0 build script.
 
 This is a repository containing scripts to get stable versions of the Allegro dependencies downloaded and compiled.
 
 Where tags are available on git repositories the git repository and a local archive command is used; where tags aren't available but compatible archives are (i.e. `tar.gz` or `tar.bz2`), the archives are used.  In some places the archive is copied anyway to avoid huge updates in the future (e.g. FreeType 2).
 
-`This currently ONLY suports Windows via Visual Studio; I'm too lazy to get the other part updated during development, poke me (file an issue) if you need it and can't work it out yourself.`
+**This is just for Visual Studio (Windows).  The aim here is *not* to make a universal replacement (as Linux and OS X are easy targets).  This exists to make Windows tolerable without needing to manualyl link everything all the time.**
 
 ## Requirements
 
@@ -26,9 +26,9 @@ Since Windows is harder to get up and running than other platforms, it was done 
 
 ### How this works
 
-This script uses standard commandline utilities (for Windows these are all provided by the `Git for Windows` install).  To keep things crossplatform the `xz` extension *has* to be avoided, and so git cloning and archiving is used to bypass this.  While this is sort of ugly, it does come with the bonus benefit of providing archived copies of the code to move around -- just copy the source file, network mount this, or whatever.
+This script uses standard commandline utilities (for Windows these are all provided by the `Git for Windows` install).  To keep things accessible to all users the `xz` extension *has* to be avoided, and so git cloning and archiving is used to bypass this.  While this is sort of ugly, it does come with the bonus benefit of providing archived copies of the code to move around -- just copy the source file, network mount this, or whatever.
 
-Internally it uses a batch script (and when I get around to it a bash script) to make and install.  For Windows, there is no `/usr/local`, so it installs into a cmake_install directory within the `out` path created.  For other platforms I have a similar idea in mind to prevent mixing/clobbering things we don't want to break.
+Internally it uses a batch script (and when I get around to it a bash script) to make and install.  For Windows, there is no `/usr/local`, so it installs into a cmake_install directory within the `out` path created.
 
 ### Exclusions
   * `libjpeg` is excluded as I don't personally use JPEGs.  It can be added from various sources, but again, it isn't included here;
